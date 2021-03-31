@@ -9,9 +9,11 @@ private boolean isOn;
 private ArrayList<Music> musicList = new ArrayList<>();
 private Music currentlyPlayingMusic;
 private MusicState currentMusicState;
-private int volume;
+private int volume = 5;
+    private Music next;
 
-public boolean isOn() {
+
+    public boolean isOn() {
         return isOn;
     }
 
@@ -24,9 +26,14 @@ public boolean isOn() {
 
     public void download(Music music) {
         if (isOn)
-            if(!musicList.contains(music))
-            musicList.add(music);
-    }
+            if (!musicList.contains(music))
+                musicList.add(music);
+
+         if(!isOn)
+             if(!musicList.contains(music))
+               musicList.remove(music) ;
+            }
+
 
     public int getTotalNumberOfMusic() {
         return musicList.size();
@@ -65,10 +72,6 @@ public void repeat(){
         currentMusicState= REPEAT;
     }
 
-
-    public void volume() {
-        this.volume = volume;
-    }
     public void increaseVolume(){
     if (isOn)
     if(volume >= 0 && volume < 100 )
@@ -79,14 +82,42 @@ public void repeat(){
             if(volume <= 100 && volume > 0 )
                 volume --;
     }
-    public boolean getVolume(){
-    return true;
+    public int getVolume(){
+    return volume;
     }
 
+
     public void skip() {
-    currentMusicState = SKIPPED;
+        for (int i = 0; i < musicList.size(); i++) {
+            if (currentlyPlayingMusic == musicList.get(i)) {
+                currentlyPlayingMusic = musicList.get(i + 2);
+                break;
+            }
+        }
+    }
+
+    public void next() {
+        for (int i = 0; i < musicList.size() ; i++) {
+            if(currentlyPlayingMusic == musicList.get(i)) {
+                currentlyPlayingMusic = musicList.get(i+1);
+                break;
+            }
+
+        }
+    }
+
+    public void previous() {
+        for (int i = 0; i < musicList.size(); i++) {
+            if(currentlyPlayingMusic == musicList.get(i)){
+                currentlyPlayingMusic = musicList.get(i-1);
+                break;
+            }
+
+        }
     }
 }
+
+
 
 
 

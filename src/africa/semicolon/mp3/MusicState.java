@@ -1,5 +1,5 @@
 package africa.semicolon.mp3;
 
 public enum MusicState {
-    PAUSED, PLAYING, REPEAT, SKIPPED,STOPPED;
+    PAUSED, PLAYING,STOPPED, REPEAT;
 }
